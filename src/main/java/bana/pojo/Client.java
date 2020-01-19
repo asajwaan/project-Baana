@@ -1,6 +1,6 @@
 package bana.pojo;
 
-public class Entity {
+public class Client {
 
 	
 	String username;
@@ -10,20 +10,30 @@ public class Entity {
 	String Email;
 	String PhoneNumber;
 	String Type;
-	String Password;
+	String id;
 	
 	
 	
-	public String getPassword() {
-		return Password;
+	public String getType() {
+		return Type;
 	}
 
-	public void setPassword(String password) {
-		Password = password;
+	public void setType(String type) {
+		Type = type;
 	}
 
-	public Entity(String username, String name, String city, String address, String email, String phoneNumber,
-			String type,String password) {
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+
+	public Client(String username, String name, String city, String address, String email, String phoneNumber,
+			String type, String id) {
 		super();
 		this.username = username;
 		Name = name;
@@ -32,7 +42,7 @@ public class Entity {
 		Email = email;
 		PhoneNumber = phoneNumber;
 		Type = type;
-		Password=password;
+		this.id=id;
 	}
 	
 	public String getUsername() {

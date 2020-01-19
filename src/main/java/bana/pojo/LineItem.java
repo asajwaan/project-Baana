@@ -1,25 +1,33 @@
 package bana.pojo;
 
 
-public class Content {
+public class LineItem {
 
+	String id=null;
 	String name=null;
 	String type=null;
 	String price=null;
 	String Discount=null;
 	
-	public Content()
+	public LineItem()
 	{
 		
 	}
-	public Content(String name, String type, String price, String Discount) {
+	public LineItem(String name, String type, String price, String Discount,String id) {
 		// TODO Auto-generated constructor stub
+		this.id=id;
 		this.name=name;
 		this.type=type;
 		this.price=price;
 		this.Discount=Discount;
 	}
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

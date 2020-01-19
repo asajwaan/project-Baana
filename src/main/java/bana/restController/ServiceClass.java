@@ -2,6 +2,7 @@ package bana.restController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,48 +13,81 @@ import bana.pojo.*;
 @Service
 public class ServiceClass {
 
-	List<Content> fnv=new ArrayList<Content>(Arrays.asList(new Content("Apple","fruit","50","NA"),
-			new Content("Banana","fruit","40","NA"),
-			new Content("Orange","fruit","50","NA"),
-			new Content("Pomegranet","fruit","90","NA"),
-			new Content("bhindi","vegetables","40","NA"))
+	List<LineItem> lineItem=new ArrayList<LineItem>(Arrays.asList(new LineItem("Apple","fruit","50","NA","dfd"),
+			new LineItem("Banana","fruit","40","NA","564"),
+			new LineItem("Orange","fruit","50","NA","1236"),
+			new LineItem("Pomegranet","fruit","90","NA","54645"),
+			new LineItem("bhindi","vegetables","40","NA","3453"))
 	);
 	
-	List<Entity> ent=Arrays.asList(new Entity("asajwan","Ashish","Delhi","101 delhi","asajwan@gmail.com","91029","customer","12345"),
-			new Entity("aks","Akhsay","Pune","101 Pune","aks@gmail.com","91020","customer","32456"),
-			new Entity("random","rankesh","Delhi","101 delhi","rks@gmail.com","91045","customer","46753")		
-			);
+	List<Client> client=new ArrayList<Client>(Arrays.asList(new Client("asajwan","Ashish","Delhi","101 delhi","asajwan@gmail.com","91029","customer","564"),
+			new Client("aks","Akhsay","Pune","101 Pune","aks@gmail.com","91020","customer","3453"),
+			new Client("random","rankesh","Delhi","101 delhi","rks@gmail.com","91045","customer","1236")		
+			));
+	
+	List<LoginTable> login=new ArrayList<LoginTable>(Arrays.asList(new LoginTable("aks","91020")));
 	
 	
-	public List<Content> getList()
+	public List<LineItem> getList()
 	{
-		return fnv;
+		return lineItem;
 	}
 
+	public List<Client> getClientList()
+	{
+		return client;
+	}
+	
+	public String addClient(Registration reqbody)
+	{
+		client.add(new Client(reqbody.getUsername(),reqbody.getName(),reqbody.getCity(),reqbody.getAddress()
+				,reqbody.getEmail(),reqbody.getPhoneNumber(),reqbody.getType(),reqbody.getId()));
+		
+		login.add(new LoginTable(reqbody.getUsername(),reqbody.getPassword()));
+		
+		return "successfully added client";
+	}
+	
 	public int checkLogin(String UserName, String Password) {
 		// TODO Auto-generated method stub
 	//	ent.stream().filter(x-> x.getUsername().equals(UserName)).
 		
-		return (int) ent.stream().filter(x-> x.getUsername().equals(UserName)).filter(y->y.getPassword().equals(Password)).count();
+		return (int) login.stream().filter(x-> x.getUsername().equals(UserName)).filter(y->y.getPassword().equals(Password)).count();
 	}
 
-	public List<Content> getFruits() {
+	public List<LineItem> getFruits() {
 		// TODO Auto-generated method stub
 		
-		return fnv.stream().filter(x->x.getType().equals("fruit")).collect(Collectors.toList());
+		return lineItem.stream().filter(x->x.getType().equals("fruit")).collect(Collectors.toList());
 	}
 
-	public List<Content> getVegetables() {
+	public List<LineItem> getVegetables() {
 		// TODO Auto-generated method stub
-		 return fnv.stream().filter(x->x.getType().equals("vegetables")).collect(Collectors.toList());
+		 return lineItem.stream().filter(x->x.getType().equals("vegetables")).collect(Collectors.toList());
 	}
 
-	public String addList(Content request) {
+	public String addList(LineItem request) {
 		// TODO Auto-generated method stub
 		
-		fnv.add(request);
+		lineItem.add(request);
 		
 		return "added Succesfully";
+	}
+
+	public List<Client> getClientBYId(String id) {
+		return client.stream().filter(x->x.getId().equals(id)).collect(Collectors.toList());
+		
+	}
+
+	public String updateclientById(String id, Client updateRequest) {
+		// TODO Auto-generated method stub 
+		
+		for(int x=0;x<client.size();x++) {
+			
+		if(client.get(x).getId().equals(id))
+			client.set(x, updateRequest);	
+		}
+		return "update Succesfull";
 	}
 	
 	
